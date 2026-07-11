@@ -1,0 +1,100 @@
+{
+ "summaries": [
+  {
+   "gainedXp": 648,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783728000,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 10,
+   "totalSessionTime": 1806,
+   "shielded": false
+  },
+  {
+   "gainedXp": 354,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783641600,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 9,
+   "totalSessionTime": 1243,
+   "shielded": false
+  },
+  {
+   "gainedXp": 164,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783555200,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 4,
+   "totalSessionTime": 574,
+   "shielded": false
+  },
+  {
+   "gainedXp": 958,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783468800,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 17,
+   "totalSessionTime": 2440,
+   "shielded": false
+  },
+  {
+   "gainedXp": 213,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783382400,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 4,
+   "totalSessionTime": 539,
+   "shielded": false
+  },
+  {
+   "gainedXp": 200,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783296000,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 5,
+   "totalSessionTime": 1202,
+   "shielded": false
+  },
+  {
+   "gainedXp": 84,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783209600,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 1,
+   "totalSessionTime": 229,
+   "shielded": false
+  },
+  {
+   "gainedXp": 236,
+   "frozen": false,
+   "streakExtended": true,
+   "date": 1783123200,
+   "userId": 0,
+   "repaired": false,
+   "dailyGoalXp": 1,
+   "numSessions": 3,
+   "totalSessionTime": 595,
+   "shielded": false
+  }
+ ]
+}

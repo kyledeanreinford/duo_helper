@@ -1,0 +1,3396 @@
+{
+ "streak": 25,
+ "streakData": {
+  "currentStreak": {
+   "length": 25,
+   "lastExtendedDate": "2026-07-11",
+   "endDate": "2026-07-11",
+   "startDate": "2026-06-15"
+  }
+ },
+ "totalXp": 159387,
+ "currentCourse": {
+  "id": "DUOLINGO_PT_EN",
+  "learningLanguage": "pt",
+  "fromLanguage": "en",
+  "activePathSectionId": "f8fe011f0c99edb1fc8d73dd97e6f8d0-1",
+  "pathSectioned": [
+   {
+    "id": "e2787ccfe376e95100ebf2f9b7802fef-0",
+    "index": 0,
+    "type": "learning",
+    "completedUnits": 11,
+    "totalUnits": 11,
+    "units": [
+     {
+      "unitIndex": 0,
+      "teachingObjective": "Order at a cafe",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 1,
+      "teachingObjective": "Greet and say goodbye",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 2,
+      "teachingObjective": "Talk about where you're from",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 4,
+        "totalSessions": 4
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 3,
+      "teachingObjective": "Identify family members",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 4,
+      "teachingObjective": "Describe character traits",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 5,
+      "teachingObjective": "Locate your belongings",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 6,
+      "teachingObjective": "Find places in the city",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 7,
+      "teachingObjective": "Use the present tense",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 8,
+      "teachingObjective": "Talk about the weather",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 9,
+      "teachingObjective": "Shop for groceries",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 10,
+      "teachingObjective": "Describe your home",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 5,
+        "totalSessions": 5
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 2,
+        "totalSessions": 2
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "f8fe011f0c99edb1fc8d73dd97e6f8d0-1",
+    "index": 1,
+    "type": "learning",
+    "completedUnits": 8,
+    "totalUnits": 30,
+    "units": [
+     {
+      "unitIndex": 11,
+      "teachingObjective": "Use the present tense",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 12,
+      "teachingObjective": "Discuss sports activities",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 13,
+      "teachingObjective": "Talk about hobbies",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 14,
+      "teachingObjective": "Participate in class",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 15,
+      "teachingObjective": "Order food and drinks",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 16,
+      "teachingObjective": "Review food and service",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 17,
+      "teachingObjective": "Find your way around",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 18,
+      "teachingObjective": "Use gender and number agreement",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 3,
+        "totalSessions": 3
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 19,
+      "teachingObjective": "Discuss your workplace",
+      "levels": [
+       {
+        "state": "passed",
+        "finishedSessions": 6,
+        "totalSessions": 6
+       },
+       {
+        "state": "passed",
+        "finishedSessions": 1,
+        "totalSessions": 1
+       },
+       {
+        "state": "active",
+        "finishedSessions": 4,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 20,
+      "teachingObjective": "Shop for groceries",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 21,
+      "teachingObjective": "Use possessive adjectives",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 22,
+      "teachingObjective": "Identify classroom items",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 23,
+      "teachingObjective": "Ask about feelings",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 24,
+      "teachingObjective": "Ask for directions",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 25,
+      "teachingObjective": "Use quantifiers in questions",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 26,
+      "teachingObjective": "Meet new people",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 27,
+      "teachingObjective": "Describe family members",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 28,
+      "teachingObjective": "Plan your schedule",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 29,
+      "teachingObjective": "Use formal address forms",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 30,
+      "teachingObjective": "Share personal stories",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 31,
+      "teachingObjective": "Use the present tense",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 32,
+      "teachingObjective": "Discuss animals and their habitats",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 33,
+      "teachingObjective": "Describe daily routines",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 34,
+      "teachingObjective": "Use reflexive verbs",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 35,
+      "teachingObjective": "Discuss your hobbies",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 36,
+      "teachingObjective": "Talk about music events",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 37,
+      "teachingObjective": "Discuss leisure activities",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 38,
+      "teachingObjective": "Seek medical help",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 39,
+      "teachingObjective": "Discuss your commute",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 40,
+      "teachingObjective": "Talk about birthdays",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "132b1b929cd63887cd02fb9463d1b8c3-2",
+    "index": 2,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 30,
+    "units": [
+     {
+      "unitIndex": 41,
+      "teachingObjective": "Express preferences and desires",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 42,
+      "teachingObjective": "Talk about going out",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 43,
+      "teachingObjective": "Plan wellness activities",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 44,
+      "teachingObjective": "Express needs and desires",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 45,
+      "teachingObjective": "Plan a trip",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 46,
+      "teachingObjective": "Express imminent actions",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 47,
+      "teachingObjective": "Explore the city",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 48,
+      "teachingObjective": "Use demonstratives",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 49,
+      "teachingObjective": "Find food items",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 50,
+      "teachingObjective": "Celebrate with friends",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 51,
+      "teachingObjective": "Shop for clothes",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 52,
+      "teachingObjective": "Use the present tense for routines",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 53,
+      "teachingObjective": "Discuss health concerns",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 54,
+      "teachingObjective": "Use indefinite pronouns and adjectives",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 55,
+      "teachingObjective": "Handle workplace issues",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 56,
+      "teachingObjective": "Use demonstratives",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 57,
+      "teachingObjective": "Discuss movies",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 58,
+      "teachingObjective": "Participate in activities",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 59,
+      "teachingObjective": "Send and receive mail",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 60,
+      "teachingObjective": "Use the present progressive",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 61,
+      "teachingObjective": "Talk about the weather",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 62,
+      "teachingObjective": "Discuss work stress",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 63,
+      "teachingObjective": "Use adverbs",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 64,
+      "teachingObjective": "Use quantifiers",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 65,
+      "teachingObjective": "Chat online",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 66,
+      "teachingObjective": "Play sports and games",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 67,
+      "teachingObjective": "Do household chores",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 68,
+      "teachingObjective": "Handle emergencies",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 69,
+      "teachingObjective": "Use modals for necessity and permission",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     },
+     {
+      "unitIndex": 70,
+      "teachingObjective": "Work in the office",
+      "levels": [
+       {
+        "state": "unit_test",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 6
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 3
+       },
+       {
+        "state": "locked",
+        "finishedSessions": 0,
+        "totalSessions": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "d5accb9e16accf08cac70baea426a6bb-3",
+    "index": 3,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 60,
+    "units": null
+   },
+   {
+    "id": "c296e639371c6965663247db13d95f20-4",
+    "index": 4,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 255,
+    "units": null
+   },
+   {
+    "id": "deaf6417311b07ca46050cde73d5c391-5",
+    "index": 5,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 245,
+    "units": null
+   },
+   {
+    "id": "de49d485cab543c0ac73897f469d909d-6",
+    "index": 6,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 200,
+    "units": null
+   },
+   {
+    "id": "6895098d01e076ff262fbce7efdd74c5-7",
+    "index": 7,
+    "type": "learning",
+    "completedUnits": 0,
+    "totalUnits": 200,
+    "units": null
+   },
+   {
+    "id": "b1d8e74d9759fa786424cca16d6a3f84-8",
+    "index": 8,
+    "type": "daily_refresh",
+    "completedUnits": 0,
+    "totalUnits": 1,
+    "units": null
+   }
+  ]
+ }
+}
