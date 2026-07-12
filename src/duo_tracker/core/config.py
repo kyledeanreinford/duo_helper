@@ -28,6 +28,11 @@ class Settings(BaseSettings):
     # Where `duo-tracker probe` writes raw endpoint dumps.
     probe_dir: Path = Path("./data")
 
+    # "Today" for snapshot_date is computed in this zone, NOT the system
+    # clock's — the k8s container runs UTC, where 23:50 Chicago is already
+    # tomorrow; naive date.today() files the whole day under the wrong date.
+    timezone: str = "America/Chicago"
+
     def accounts(self) -> list[DuoAccount]:
         out: list[DuoAccount] = []
         for name in [p.strip().lower() for p in self.duo_people.split(",") if p.strip()]:

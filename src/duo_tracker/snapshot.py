@@ -9,6 +9,7 @@ CronJob shows red.
 import json
 import logging
 from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import text
 
@@ -55,7 +56,9 @@ def run(person: str | None = None, date_str: str | None = None) -> int:
             log.error("No configured account named %r (DUO_PEOPLE=%s)", person, settings.duo_people)
             return 1
 
-    snapshot_date = date.fromisoformat(date_str) if date_str else date.today()
+    snapshot_date = (
+        date.fromisoformat(date_str) if date_str else local_today(settings.timezone)
+    )
     engine = get_engine()
     failures = 0
     for account in accounts:
@@ -68,6 +71,10 @@ def run(person: str | None = None, date_str: str | None = None) -> int:
     if failures:
         log.error("%d/%d snapshots failed", failures, len(accounts))
     return 1 if failures else 0
+
+
+def local_today(tz_name: str) -> date:
+    return datetime.now(tz=ZoneInfo(tz_name)).date()
 
 
 def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:

@@ -21,6 +21,7 @@ from duo_tracker.core.db import get_engine
 from duo_tracker.duo.auth import decode_user_id
 from duo_tracker.duo.client import DuoClient
 from duo_tracker.duo.models import UserPayload, XpSummariesPayload, XpSummary
+from duo_tracker.snapshot import local_today
 
 log = logging.getLogger(__name__)
 
@@ -80,7 +81,7 @@ def _backfill_one(account, since: date, engine) -> None:
 
     streaks = reconstruct_streaks(entries, streak_start)
 
-    today = date.today()
+    today = local_today(get_settings().timezone)
     inserted = skipped = 0
     with engine.begin() as conn:
         for day, entry in entries:
