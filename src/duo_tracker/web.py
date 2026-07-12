@@ -53,7 +53,8 @@ class DayRow:
 @dataclass(frozen=True)
 class PersonStats:
     person: str
-    today: date
+    anchor: date  # latest snapshot date — every window/table ends here, so a
+                  # mid-day page view never shows an empty "today" as a zero
     streak: int | None
     position: str | None
     units_completed: int | None
@@ -99,8 +100,23 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         FROM duolingo_daily_snapshot
         WHERE person = :person AND snapshot_date > :floor
         ORDER BY snapshot_date DESC
-    """), {"person": person, "floor": today - timedelta(days=38)}).fetchall()
+    """), {"person": person, "floor": today - timedelta(days=39)}).fetchall()
+    obs_rows = conn.execute(text("""
+        SELECT snapshot_date, lessons_completed_today, units_completed
+        FROM duolingo_daily_snapshot
+        WHERE person = :person
+        ORDER BY snapshot_date ASC
+    """), {"person": person}).fetchall()
+    return compute_stats(person, [tuple(r) for r in rows], [tuple(r) for r in obs_rows], today)
+
+
+def compute_stats(person: str, rows: list, obs_rows: list, today: date) -> PersonStats:
+    """rows: snapshot tuples newest-first (see person_stats query)."""
     by_day = {r[0]: r for r in rows}
+    # Anchor on the latest snapshot, not the calendar day: the nightly row
+    # for "today" only exists after 23:59, and counting a not-yet-snapshotted
+    # day as zero would drag every pace down all day long.
+    anchor = rows[0][0] if rows else today
 
     def lessons_on(d: date) -> int:
         row = by_day.get(d)
@@ -109,15 +125,15 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
     def pace(window: int, end: date) -> float:
         return sum(lessons_on(end - timedelta(days=i)) for i in range(window)) / window
 
-    week_ago = today - timedelta(days=7)
-    avg7 = pace(7, today)
-    avg30 = pace(30, today)
+    week_ago = anchor - timedelta(days=7)
+    avg7 = pace(7, anchor)
+    avg30 = pace(30, anchor)
     delta7 = avg7 - pace(7, week_ago)
     delta30 = avg30 - pace(30, week_ago)
 
     week: list[DayRow] = []
     for i in range(7):
-        d = today - timedelta(days=i)
+        d = anchor - timedelta(days=i)
         row = by_day.get(d)
         position = None
         if row and row[4] is not None and row[5] is not None:
@@ -133,20 +149,14 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
     latest = rows[0] if rows else None
     remaining = remaining_a2_lessons(latest[6] if latest else None)
 
-    obs_rows = conn.execute(text("""
-        SELECT snapshot_date, lessons_completed_today, units_completed
-        FROM duolingo_daily_snapshot
-        WHERE person = :person
-        ORDER BY snapshot_date ASC
-    """), {"person": person}).fetchall()
-    observations = observe_lessons_per_unit([tuple(r) for r in obs_rows])
+    observations = observe_lessons_per_unit(obs_rows)
     total_gained = sum(o.units_gained for o in observations)
     observed_per_unit = (
         sum(o.lessons_spent for o in observations) / total_gained if total_gained else None
     )
     return PersonStats(
         person=person,
-        today=today,
+        anchor=anchor,
         streak=latest[3] if latest else None,
         position=f"Section {latest[4]}, Unit {latest[5]}" if latest and latest[4] else None,
         units_completed=latest[6] if latest else None,
@@ -155,9 +165,9 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         delta7=delta7,
         delta30=delta30,
         remaining_a2_lessons=remaining,
-        eta7=eta(today, remaining, avg7),
-        eta30=eta(today, remaining, avg30),
-        eta_shift_days=eta_shift(today, remaining, avg7, avg7 - delta7),
+        eta7=eta(anchor, remaining, avg7),
+        eta30=eta(anchor, remaining, avg30),
+        eta_shift_days=eta_shift(anchor, remaining, avg7, avg7 - delta7),
         week=week,
         observations=observations[-6:],
         observed_per_unit=observed_per_unit,

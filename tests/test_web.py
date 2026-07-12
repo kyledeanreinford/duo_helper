@@ -57,3 +57,34 @@ def test_eta_shift():
     assert eta_shift(today, 1000, 4.0, 5.0) == 50
     assert eta_shift(today, 1000, 5.0, 0.0) is None   # no prior pace -> no shift
     assert eta_shift(today, None, 5.0, 4.0) is None
+
+
+def test_compute_stats_anchors_on_latest_snapshot():
+    from duo_tracker.web import compute_stats
+
+    # Latest snapshot is yesterday; page viewed mid-day today.
+    rows = [  # newest first: (date, lessons, xp, streak, section, unit, units_completed)
+        (date(2026, 7, 10), 7, 350, 24, 2, 9, 19),
+        (date(2026, 7, 9), 7, 350, 23, 2, 9, 19),
+        (date(2026, 7, 8), 7, 350, 22, 2, 8, 18),
+        (date(2026, 7, 7), 7, 350, 21, 2, 8, 18),
+        (date(2026, 7, 6), 7, 350, 20, 2, 8, 18),
+        (date(2026, 7, 5), 7, 350, 19, 2, 8, 18),
+        (date(2026, 7, 4), 7, 350, 18, 2, 8, 18),
+    ]
+    s = compute_stats("kyle", rows, [], today=date(2026, 7, 11))
+    assert s.anchor == date(2026, 7, 10)
+    # The 7-day window ends at the anchor: all seven days have 7 lessons.
+    assert s.avg7 == 7.0
+    # The week table starts at the anchor, not the empty today.
+    assert s.week[0].day == date(2026, 7, 10)
+    assert s.week[0].lessons == 7
+
+
+def test_compute_stats_empty_history():
+    from duo_tracker.web import compute_stats
+
+    s = compute_stats("kyle", [], [], today=date(2026, 7, 11))
+    assert s.anchor == date(2026, 7, 11)
+    assert s.avg7 == 0.0
+    assert s.eta7 is None

@@ -150,6 +150,7 @@
     <strong>{{ s.person }}</strong>
     {% if s.position %} · {{ s.position }}{% endif %}
     {% if s.streak is not none %} · streak {{ s.streak }}{% endif %}
+    {% if s.anchor != today %} · data through {{ s.anchor.strftime("%a %d %b") }}{% endif %}
   </h2>
 
   <div class="tiles">
@@ -239,7 +240,7 @@
     </thead>
     <tbody>
       {% for d in s.week %}
-      <tr{% if d.day == today %} class="today"{% endif %}>
+      <tr{% if d.day == today %} class="today"{% endif %}{# 'hoje' only when the latest data really is today's #}>
         <td>{{ d.day.strftime("%a %d %b") }}</td>
         <td class="num">{% if d.lessons is not none %}{{ d.lessons }}{% else %}<span class="nil">·</span>{% endif %}</td>
         <td class="num">{% if d.xp is not none %}{{ d.xp }}{% else %}<span class="nil">·</span>{% endif %}</td>
@@ -260,8 +261,10 @@
     <strong>24 lessons per unit</strong> through the end of Section&nbsp;4
     (unit&nbsp;131, CEFR&nbsp;A2) — a working number until enough units
     complete on-record; the observed table above replaces it with actuals as
-    they accumulate. Days without a snapshot show as&nbsp;· and count as zero
-    in the averages. Snapshots land nightly at 23:59.
+    they accumulate. Everything is anchored to the latest snapshot — the page
+    never counts a not-yet-snapshotted day as zero. Days that were skipped
+    mid-window show as&nbsp;· and count as zero in the averages. Snapshots
+    land nightly at 23:59.
   </p>
 </footer>
 
