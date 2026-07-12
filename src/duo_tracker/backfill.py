@@ -66,11 +66,15 @@ def _backfill_one(account, since: date, engine) -> None:
     user_id = decode_user_id(account.jwt, account.person)
     with DuoClient(account.jwt, account.person) as client:
         user_raw = client.get_user(user_id)
-        xp_raw = client.get_xp_summaries(user_id, since)
+        streak_start, _ = _current_streak_window(user_raw)
+        # Streak reconstruction needs every day of the current streak, not
+        # just the requested window — a short --since otherwise sees one
+        # extended day and reports streak 1 (bit us on 2026-07-12).
+        fetch_from = min(since, streak_start) if streak_start else since
+        xp_raw = client.get_xp_summaries(user_id, fetch_from)
 
     user = UserPayload.model_validate(user_raw)
     course_id = (user.currentCourse.id if user.currentCourse else None) or "pt-en"
-    streak_start, _ = _current_streak_window(user_raw)
 
     entries = [
         (datetime.fromtimestamp(e.date, tz=timezone.utc).date(), e)
