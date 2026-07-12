@@ -35,6 +35,10 @@ def main(argv: list[str] | None = None) -> int:
     p_show.add_argument("--person", default=None, help="Only show this person")
     p_show.add_argument("--days", type=int, default=14, help="Look-back window (default: 14)")
 
+    p_web = sub.add_parser("web", help="Serve the pace-log page")
+    p_web.add_argument("--host", default="0.0.0.0")
+    p_web.add_argument("--port", type=int, default=8000)
+
     args = parser.parse_args(argv)
 
     # Imports are deferred so e.g. `probe` works without a reachable database.
@@ -53,6 +57,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "show":
         from duo_tracker.show import run
         return run(person=args.person, days=args.days)
+    if args.cmd == "web":
+        from duo_tracker.web import serve
+        return serve(host=args.host, port=args.port)
     return 2
 
 

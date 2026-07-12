@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Português · pace log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:   #f6f1e5;   /* aged plaster */
+    --ink:     #16355c;   /* deep cobalt underglaze */
+    --glaze:   #1d5bb8;   /* bright tile blue */
+    --faded:   #5e719049; /* hairlines */
+    --muted:   #5e7190;   /* secondary ink */
+    --accent:  #b3541e;   /* terracotta — used once */
+    --tile:    8px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Fraunces", Georgia, serif;
+    min-height: 100vh;
+    padding: clamp(1rem, 4vw, 3.5rem);
+  }
+  /* azulejo frieze — a strip of quartered tiles, pure CSS */
+  .frieze {
+    height: calc(var(--tile) * 2);
+    background:
+      repeating-conic-gradient(from 45deg,
+        var(--glaze) 0 25%, var(--paper) 0 50%) 0 0 / calc(var(--tile) * 2) calc(var(--tile) * 2);
+    border-block: 2px solid var(--ink);
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  header h1 {
+    font-weight: 900;
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+  header h1 em { font-style: italic; color: var(--glaze); }
+  .subtitle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .person { margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .person > h2 {
+    font-size: 1rem; font-weight: 600; font-style: italic;
+    color: var(--muted); margin-bottom: 1.25rem;
+  }
+  .person > h2 strong { color: var(--ink); font-style: normal; font-weight: 900; }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2px;
+    background: var(--ink);
+    border: 2px solid var(--ink);
+  }
+  .tile {
+    background: var(--paper);
+    padding: 1.1rem 1.2rem 1rem;
+  }
+  .tile .label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .tile .value {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 600;
+    margin-top: 0.35rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .tile .value small { font-size: 0.55em; color: var(--muted); font-weight: 400; }
+  .tile.eta .value { color: var(--glaze); }
+  .tile .detail {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  caption {
+    text-align: left; font-family: "Fraunces", serif; font-style: italic;
+    color: var(--muted); padding-bottom: 0.6rem; font-size: 0.9rem;
+  }
+  th {
+    text-align: left; font-weight: 500; font-size: 0.65rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    padding: 0.45rem 0.75rem 0.45rem 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  td {
+    padding: 0.55rem 0.75rem 0.55rem 0;
+    border-bottom: 1px solid var(--faded);
+  }
+  td.num, th.num { text-align: right; }
+  tr.today td { font-weight: 600; }
+  tr.today td:first-child::after {
+    content: "hoje"; font-size: 0.6rem; color: var(--accent);
+    margin-left: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 400;
+  }
+  td .nil { color: var(--faded); }
+
+  footer {
+    margin-top: 2.5rem;
+    font-size: 0.75rem;
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+  footer .frieze { margin: 0 0 1.25rem; height: var(--tile); border-block-width: 1px; }
+</style>
+</head>
+<body>
+
+<div class="frieze" role="presentation"></div>
+
+<header>
+  <h1>Português<br><em>pace log</em></h1>
+  <p class="subtitle">{{ today.strftime("%A · %d %B %Y") }}</p>
+</header>
+
+{% for s in stats %}
+<section class="person">
+  <h2>
+    <strong>{{ s.person }}</strong>
+    {% if s.position %} · {{ s.position }}{% endif %}
+    {% if s.streak is not none %} · streak {{ s.streak }}{% endif %}
+  </h2>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="label">7-day pace</div>
+      <div class="value">{{ "%.1f"|format(s.avg7) }}<small> lessons/day</small></div>
+    </div>
+    <div class="tile">
+      <div class="label">30-day pace</div>
+      <div class="value">{{ "%.1f"|format(s.avg30) }}<small> lessons/day</small></div>
+    </div>
+    <div class="tile">
+      <div class="label">A2 progress</div>
+      <div class="value">{{ s.units_completed if s.units_completed is not none else "—" }}<small> / 131 units</small></div>
+      {% if s.remaining_a2_lessons is not none %}
+      <div class="detail">{{ s.remaining_a2_lessons }} lessons left</div>
+      {% endif %}
+    </div>
+    <div class="tile eta">
+      <div class="label">End of A2, est.</div>
+      <div class="value">{{ s.eta7.strftime("%b %Y") if s.eta7 else "—" }}</div>
+      <div class="detail">
+        {% if s.eta7 %}{{ s.eta7.strftime("%d %b %Y") }} at 7-day pace{% endif %}
+        {% if s.eta30 %}<br>{{ s.eta30.strftime("%d %b %Y") }} at 30-day pace{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <caption>the last seven days</caption>
+    <thead>
+      <tr>
+        <th>day</th>
+        <th class="num">lessons</th>
+        <th class="num">xp</th>
+        <th class="num">streak</th>
+        <th>position</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in s.week %}
+      <tr{% if d.day == today %} class="today"{% endif %}>
+        <td>{{ d.day.strftime("%a %d %b") }}</td>
+        <td class="num">{% if d.lessons is not none %}{{ d.lessons }}{% else %}<span class="nil">·</span>{% endif %}</td>
+        <td class="num">{% if d.xp is not none %}{{ d.xp }}{% else %}<span class="nil">·</span>{% endif %}</td>
+        <td class="num">{% if d.streak is not none %}{{ d.streak }}{% else %}<span class="nil">·</span>{% endif %}</td>
+        <td>{% if d.position %}{{ d.position }}{% else %}<span class="nil">·</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+
+<footer>
+  <div class="frieze" role="presentation"></div>
+  <p>
+    Pace counts every Duolingo session (path lessons, stories, radio), so the
+    A2 estimate runs a little optimistic. Lessons remaining come from the
+    course path itself: unfinished sessions through the end of Section&nbsp;4
+    (unit&nbsp;131, CEFR&nbsp;A2). Days without a snapshot show as&nbsp;·
+    and count as zero in the averages. Snapshots land nightly at 23:59.
+  </p>
+</footer>
+
+</body>
+</html>
