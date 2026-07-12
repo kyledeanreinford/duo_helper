@@ -19,6 +19,7 @@ from duo_tracker.duo.auth import decode_user_id
 from duo_tracker.duo.client import DuoClient
 from duo_tracker.duo.models import UserPayload, XpSummariesPayload
 from duo_tracker.duo.reduce import PathPosition, reduce_path
+from duo_tracker.duo.trim import trim_user_payload
 
 log = logging.getLogger(__name__)
 
@@ -84,7 +85,9 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
         xp_raw = client.get_xp_summaries(user_id, snapshot_date - timedelta(days=7))
 
     raw_response = {
-        "user": user_raw,
+        # Trimmed to the path skeleton + streak/course identity (~100x
+        # smaller than the raw response); xp_summaries kept whole (tiny).
+        "user": trim_user_payload(user_raw),
         "xp_summaries": xp_raw,
         "fetched_at": datetime.now(tz=timezone.utc).isoformat(),
     }
