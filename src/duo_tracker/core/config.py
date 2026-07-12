@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     # tomorrow; naive date.today() files the whole day under the wrong date.
     timezone: str = "America/Chicago"
 
+    # Alertmanager base URL (in-cluster: http://alertmanager.monitoring.svc
+    # .cluster.local:9093). It owns the single Slack webhook — apps carry no
+    # credential. Unset (local dev) = alerting disabled, stdout only.
+    alertmanager_url: str | None = None
+
     def accounts(self) -> list[DuoAccount]:
         out: list[DuoAccount] = []
         for name in [p.strip().lower() for p in self.duo_people.split(",") if p.strip()]:

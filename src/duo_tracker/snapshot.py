@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 
 from sqlalchemy import text
 
+from duo_tracker.alerting import send_alert
 from duo_tracker.core.config import DuoAccount, get_settings
 from duo_tracker.core.db import get_engine
 from duo_tracker.duo.auth import decode_user_id
@@ -61,16 +62,23 @@ def run(person: str | None = None, date_str: str | None = None) -> int:
         date.fromisoformat(date_str) if date_str else local_today(settings.timezone)
     )
     engine = get_engine()
-    failures = 0
+    failures: list[tuple[str, str]] = []
     for account in accounts:
         try:
             snapshot_one(account, snapshot_date, engine)
-        except Exception:
+        except Exception as exc:
             # Loud per-person failure; silent gaps in the data defeat the purpose.
             log.exception("SNAPSHOT FAILED for %s", account.person)
-            failures += 1
+            failures.append((account.person, str(exc)))
     if failures:
-        log.error("%d/%d snapshots failed", failures, len(accounts))
+        log.error("%d/%d snapshots failed", len(failures), len(accounts))
+        send_alert(
+            settings.alertmanager_url,
+            summary=f"duo-tracker: snapshot failed for {', '.join(p for p, _ in failures)}",
+            # The exception text carries the fix (e.g. the re-harvest-JWT
+            # instructions from DuoAuthError) straight into Slack.
+            description="\n".join(f"{p}: {msg}" for p, msg in failures),
+        )
     return 1 if failures else 0
 
 
