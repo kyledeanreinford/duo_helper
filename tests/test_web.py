@@ -46,3 +46,14 @@ def test_observe_skips_unknown_unit_days():
 def test_no_observations_from_flat_history():
     rows = [(date(2026, 7, 11), 10, 19), (date(2026, 7, 12), 5, 19)]
     assert observe_lessons_per_unit(rows) == []
+
+
+def test_eta_shift():
+    from duo_tracker.web import eta_shift
+
+    today = date(2026, 7, 11)
+    # pace improved 4 -> 5: 1000 lessons goes from 250 to 200 days -> 50 sooner
+    assert eta_shift(today, 1000, 5.0, 4.0) == -50
+    assert eta_shift(today, 1000, 4.0, 5.0) == 50
+    assert eta_shift(today, 1000, 5.0, 0.0) is None   # no prior pace -> no shift
+    assert eta_shift(today, None, 5.0, 4.0) is None

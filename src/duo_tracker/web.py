@@ -59,9 +59,12 @@ class PersonStats:
     units_completed: int | None
     avg7: float
     avg30: float
+    delta7: float          # change in 7-day pace vs one week earlier
+    delta30: float         # change in 30-day pace vs one week earlier
     remaining_a2_lessons: int | None
     eta7: date | None
     eta30: date | None
+    eta_shift_days: int | None  # ETA movement vs a week ago; negative = sooner
     week: list[DayRow]
     observations: list["UnitObservation"]
     observed_per_unit: float | None
@@ -96,15 +99,21 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         FROM duolingo_daily_snapshot
         WHERE person = :person AND snapshot_date > :floor
         ORDER BY snapshot_date DESC
-    """), {"person": person, "floor": today - timedelta(days=31)}).fetchall()
+    """), {"person": person, "floor": today - timedelta(days=38)}).fetchall()
     by_day = {r[0]: r for r in rows}
 
     def lessons_on(d: date) -> int:
         row = by_day.get(d)
         return (row[1] or 0) if row else 0
 
-    avg7 = sum(lessons_on(today - timedelta(days=i)) for i in range(7)) / 7
-    avg30 = sum(lessons_on(today - timedelta(days=i)) for i in range(30)) / 30
+    def pace(window: int, end: date) -> float:
+        return sum(lessons_on(end - timedelta(days=i)) for i in range(window)) / window
+
+    week_ago = today - timedelta(days=7)
+    avg7 = pace(7, today)
+    avg30 = pace(30, today)
+    delta7 = avg7 - pace(7, week_ago)
+    delta30 = avg30 - pace(30, week_ago)
 
     week: list[DayRow] = []
     for i in range(7):
@@ -143,9 +152,12 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         units_completed=latest[6] if latest else None,
         avg7=avg7,
         avg30=avg30,
+        delta7=delta7,
+        delta30=delta30,
         remaining_a2_lessons=remaining,
         eta7=eta(today, remaining, avg7),
         eta30=eta(today, remaining, avg30),
+        eta_shift_days=eta_shift(today, remaining, avg7, avg7 - delta7),
         week=week,
         observations=observations[-6:],
         observed_per_unit=observed_per_unit,
@@ -156,6 +168,14 @@ def eta(today: date, remaining: int | None, rate: float) -> date | None:
     if remaining is None or rate <= 0:
         return None
     return today + timedelta(days=round(remaining / rate))
+
+
+def eta_shift(today: date, remaining: int | None, rate_now: float, rate_prev: float) -> int | None:
+    """How the 7-day-pace ETA moved vs a week ago, in days (negative = sooner)."""
+    now, prev = eta(today, remaining, rate_now), eta(today, remaining, rate_prev)
+    if now is None or prev is None:
+        return None
+    return (now - prev).days
 
 
 def remaining_a2_lessons(units_completed: int | None) -> int | None:

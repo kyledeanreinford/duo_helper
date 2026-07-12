@@ -85,6 +85,13 @@
     font-family: "IBM Plex Mono", monospace;
     font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem;
   }
+  .trend {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem; margin-top: 0.35rem;
+  }
+  .trend.good { color: var(--glaze); }
+  .trend.bad  { color: var(--accent); }
+  .trend.flat { color: var(--muted); }
 
   table {
     width: 100%;
@@ -149,10 +156,24 @@
     <div class="tile">
       <div class="label">7-day pace</div>
       <div class="value">{{ "%.1f"|format(s.avg7) }}<small> lessons/day</small></div>
+      {% if s.delta7 > 0.05 %}
+      <div class="trend good">▲ +{{ "%.1f"|format(s.delta7) }} vs last week</div>
+      {% elif s.delta7 < -0.05 %}
+      <div class="trend bad">▼ {{ "%.1f"|format(s.delta7) }} vs last week</div>
+      {% else %}
+      <div class="trend flat">— steady vs last week</div>
+      {% endif %}
     </div>
     <div class="tile">
       <div class="label">30-day pace</div>
       <div class="value">{{ "%.1f"|format(s.avg30) }}<small> lessons/day</small></div>
+      {% if s.delta30 > 0.05 %}
+      <div class="trend good">▲ +{{ "%.1f"|format(s.delta30) }} vs last week</div>
+      {% elif s.delta30 < -0.05 %}
+      <div class="trend bad">▼ {{ "%.1f"|format(s.delta30) }} vs last week</div>
+      {% else %}
+      <div class="trend flat">— steady vs last week</div>
+      {% endif %}
     </div>
     <div class="tile">
       <div class="label">A2 progress</div>
@@ -168,6 +189,15 @@
         {% if s.eta7 %}{{ s.eta7.strftime("%d %b %Y") }} at 7-day pace{% endif %}
         {% if s.eta30 %}<br>{{ s.eta30.strftime("%d %b %Y") }} at 30-day pace{% endif %}
       </div>
+      {% if s.eta_shift_days is not none %}
+        {% if s.eta_shift_days < 0 %}
+        <div class="trend good">▲ {{ -s.eta_shift_days }} days sooner than last week</div>
+        {% elif s.eta_shift_days > 0 %}
+        <div class="trend bad">▼ {{ s.eta_shift_days }} days later than last week</div>
+        {% else %}
+        <div class="trend flat">— unchanged vs last week</div>
+        {% endif %}
+      {% endif %}
     </div>
   </div>
 
