@@ -4,14 +4,15 @@ Shows, per person: the last 7 days, 7- and 30-day rolling lesson averages
 (calendar windows — days without activity count as zero), and an estimate
 of reaching the end of Section 4 (end of A2, unit 131) at each pace.
 
-The A2 estimate divides the remaining path sessions (from the latest
-snapshot's raw payload: sum of unfinished level sessions in sections 1-4)
-by the rolling lessons/day. xp_summaries' numSessions counts stories and
-radio sessions too, so the estimate is optimistic by however much of the
-daily mix isn't path lessons — good enough for pacing, stated on the page.
+The A2 estimate is (remaining units × ASSUMED_LESSONS_PER_UNIT) divided by
+the rolling lessons/day. The per-unit number is Kyle's working assumption
+(24); as units complete on-record, the page also shows *observed*
+lessons-per-unit derived from snapshot history, so the assumption can be
+replaced by actuals once there's a unit or two of data. xp_summaries'
+numSessions counts stories and radio sessions too — same caveat for both
+the paces and the observations, stated on the page.
 """
 
-import json
 import logging
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -24,7 +25,6 @@ from sqlalchemy import text
 
 from duo_tracker.core.config import get_settings
 from duo_tracker.core.db import get_engine
-from duo_tracker.duo.models import CurrentCourse
 from duo_tracker.snapshot import local_today
 
 log = logging.getLogger(__name__)
@@ -33,8 +33,12 @@ templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 app = FastAPI()
 
 # End of A2 = everything through Section 4 (11 + 30 + 30 + 60 units).
-A2_SECTION_COUNT = 4
 A2_UNIT_TARGET = 131
+
+# Kyle's working assumption until enough units complete on-record to use
+# observed actuals (the path payload's own totalSessions implies ~23/unit
+# through A2, so this is consistent). Revisit once observed data exists.
+ASSUMED_LESSONS_PER_UNIT = 24
 
 
 @dataclass(frozen=True)
@@ -59,6 +63,8 @@ class PersonStats:
     eta7: date | None
     eta30: date | None
     week: list[DayRow]
+    observations: list["UnitObservation"]
+    observed_per_unit: float | None
 
 
 @app.get("/health")
@@ -116,7 +122,19 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         ))
 
     latest = rows[0] if rows else None
-    remaining = remaining_a2_lessons(conn, person)
+    remaining = remaining_a2_lessons(latest[6] if latest else None)
+
+    obs_rows = conn.execute(text("""
+        SELECT snapshot_date, lessons_completed_today, units_completed
+        FROM duolingo_daily_snapshot
+        WHERE person = :person
+        ORDER BY snapshot_date ASC
+    """), {"person": person}).fetchall()
+    observations = observe_lessons_per_unit([tuple(r) for r in obs_rows])
+    total_gained = sum(o.units_gained for o in observations)
+    observed_per_unit = (
+        sum(o.lessons_spent for o in observations) / total_gained if total_gained else None
+    )
     return PersonStats(
         person=person,
         today=today,
@@ -129,6 +147,8 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         eta7=eta(today, remaining, avg7),
         eta30=eta(today, remaining, avg30),
         week=week,
+        observations=observations[-6:],
+        observed_per_unit=observed_per_unit,
     )
 
 
@@ -138,30 +158,48 @@ def eta(today: date, remaining: int | None, rate: float) -> date | None:
     return today + timedelta(days=round(remaining / rate))
 
 
-def remaining_a2_lessons(conn, person: str) -> int | None:
-    """Unfinished path sessions in sections 1-4, from the latest raw payload."""
-    raw = conn.execute(text("""
-        SELECT raw_response->'user'->'currentCourse'
-        FROM duolingo_daily_snapshot
-        WHERE person = :person
-          AND raw_response->'user'->'currentCourse' ? 'pathSectioned'
-        ORDER BY snapshot_date DESC
-        LIMIT 1
-    """), {"person": person}).scalar()
-    if raw is None:
+def remaining_a2_lessons(units_completed: int | None) -> int | None:
+    """Remaining lessons to end of A2 at the assumed lessons-per-unit rate."""
+    if units_completed is None:
         return None
-    course = CurrentCourse.model_validate(raw if isinstance(raw, dict) else json.loads(raw))
-    sections = [s for s in (course.pathSectioned or []) if s.type in (None, "learning")]
-    remaining = 0
-    for section in sections[:A2_SECTION_COUNT]:
-        for unit in section.units or []:
-            for level in unit.levels or []:
-                total = level.totalSessions or 0
-                finished = level.finishedSessions or 0
-                if level.state == "passed":
-                    continue
-                remaining += max(total - finished, 0)
-    return remaining
+    return max(A2_UNIT_TARGET - units_completed, 0) * ASSUMED_LESSONS_PER_UNIT
+
+
+@dataclass(frozen=True)
+class UnitObservation:
+    day: date          # the snapshot day the unit count ticked up
+    units_gained: int
+    lessons_spent: int  # lessons since the previous unit boundary
+    per_unit: float
+
+
+def observe_lessons_per_unit(rows: list) -> list[UnitObservation]:
+    """Observed lessons-per-unit from snapshot history.
+
+    rows: (snapshot_date, lessons, units_completed) ascending by date, only
+    days where units_completed is known. Whenever units_completed increases,
+    the lessons accumulated since the last increase are attributed to the
+    units gained. Includes stories/radio sessions, same caveat as the paces.
+    """
+    observations: list[UnitObservation] = []
+    prev_units: int | None = None
+    lessons_acc = 0
+    for day, lessons, units in rows:
+        if units is None:
+            continue
+        if prev_units is None:
+            prev_units = units
+            continue
+        lessons_acc += lessons or 0
+        if units > prev_units:
+            gained = units - prev_units
+            observations.append(UnitObservation(
+                day=day, units_gained=gained, lessons_spent=lessons_acc,
+                per_unit=lessons_acc / gained,
+            ))
+            lessons_acc = 0
+            prev_units = units
+    return observations
 
 
 def serve(host: str = "0.0.0.0", port: int = 8000) -> int:
