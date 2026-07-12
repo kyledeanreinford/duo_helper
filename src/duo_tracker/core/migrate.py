@@ -40,6 +40,17 @@ STATEMENTS: list[str] = [
     CREATE INDEX IF NOT EXISTS duo_snapshot_person_date_idx
         ON duolingo_daily_snapshot (person, snapshot_date DESC)
     """,
+    # 2026-07-11 human-query view: everything except raw_response, which is
+    # a multi-MB payload per row and floods any interactive SELECT *.
+    """
+    CREATE OR REPLACE VIEW snapshot_slim AS
+        SELECT id, person, snapshot_date, course_id, current_section,
+               current_unit, units_completed, lessons_completed_today,
+               xp_today, streak_days,
+               pg_column_size(raw_response) AS raw_bytes,
+               created_at, updated_at
+        FROM duolingo_daily_snapshot
+    """,
 ]
 
 
