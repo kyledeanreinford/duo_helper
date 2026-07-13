@@ -101,15 +101,16 @@ def test_compute_stats_observed_average_ignores_skips():
         "pathSectioned": [{
             "type": "learning",
             "units": [
-                {"levels": [{"state": "passed", "finishedSessions": 24, "totalSessions": 24}]},
+                # normal completions land at total-1 (one optional session)
+                {"levels": [{"state": "passed", "finishedSessions": 23, "totalSessions": 24}]},
                 {"levels": [{"state": "passed", "finishedSessions": 2, "totalSessions": 20}]},
-                {"levels": [{"state": "passed", "finishedSessions": 26, "totalSessions": 26}]},
+                {"levels": [{"state": "passed", "finishedSessions": 25, "totalSessions": 26}]},
             ],
         }],
     }
     s = compute_stats("kyle", [(date(2026, 7, 10), 7, 350, 24, 1, 3, 2)], course_raw,
                       today=date(2026, 7, 11))
-    assert s.observed_per_unit == 25.0  # (24 + 26) / 2; the skip doesn't drag it down
+    assert s.observed_per_unit == 24.0  # (23 + 25) / 2; the test-out doesn't drag it down
 
 
 def test_compute_stats_empty_history():

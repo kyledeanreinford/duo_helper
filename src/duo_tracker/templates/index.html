@@ -254,7 +254,7 @@
         <td>{{ u.objective or "" }}</td>
         <td class="num">
           {%- if not u.completed %}{{ u.sessions_done }} / {{ u.total_sessions }} <span class="nil">in progress</span>
-          {%- elif u.total_sessions and u.sessions_done < u.total_sessions %}{{ u.sessions_done }} <span class="nil">skipped ahead</span>
+          {%- elif u.total_sessions and u.sessions_done < u.total_sessions * 0.5 %}{{ u.sessions_done }} <span class="nil">skipped ahead</span>
           {%- else %}{{ u.sessions_done }}{% endif -%}
         </td>
       </tr>

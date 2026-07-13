@@ -161,10 +161,12 @@ def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonSta
             units = units_from_path(course)
         except Exception:
             log.exception("could not derive per-unit sessions from stored payload")
-    # Ground-through units only: a skipped/tested-out unit (few sessions
-    # done) is real but says nothing about how long a unit takes.
+    # Ground-through units only: a tested-out unit (well under half its
+    # sessions done) says nothing about how long a unit takes. Note that
+    # normally-completed units finish at total-1 (one optional session per
+    # unit), so the threshold must sit well below that.
     grind = [u for u in units if u.completed and u.total_sessions
-             and u.sessions_done >= u.total_sessions]
+             and u.sessions_done >= u.total_sessions * 0.5]
     observed_per_unit = (
         sum(u.sessions_done for u in grind) / len(grind) if grind else None
     )
