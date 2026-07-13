@@ -9,9 +9,11 @@ def run(person: str | None = None, days: int = 14) -> int:
     from rich.console import Console
     from rich.table import Table
 
+    # xp_today is still collected (useful for debugging/reconstruction)
+    # but not displayed — Kyle considers XP gamification, not progress.
     sql = """
         SELECT person, snapshot_date, course_id, current_section, current_unit,
-               units_completed, lessons_completed_today, xp_today, streak_days
+               units_completed, lessons_completed_today, streak_days
         FROM duolingo_daily_snapshot
         WHERE snapshot_date >= CURRENT_DATE - :days
           AND (CAST(:person AS text) IS NULL OR person = CAST(:person AS text))
@@ -25,7 +27,7 @@ def run(person: str | None = None, days: int = 14) -> int:
 
     table = Table(title=f"duolingo_daily_snapshot (last {days} days)")
     for col in ["person", "date", "course", "section", "unit", "units done",
-                "lessons today", "xp today", "streak"]:
+                "lessons today", "streak"]:
         table.add_column(col, no_wrap=col in ("date", "course"))
     for r in rows:
         table.add_row(*["" if v is None else str(v) for v in r])

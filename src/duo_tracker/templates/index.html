@@ -218,7 +218,6 @@
       <tr>
         <th>day</th>
         <th class="num">lessons</th>
-        <th class="num">xp</th>
         <th class="num">streak</th>
         <th>position</th>
       </tr>
@@ -228,7 +227,6 @@
       <tr{% if d.day == today %} class="today"{% endif %}{# 'hoje' only when the latest data really is today's #}>
         <td>{{ d.day.strftime("%a %d %b") }}</td>
         <td class="num">{% if d.lessons is not none %}{{ d.lessons }}{% else %}<span class="nil">·</span>{% endif %}</td>
-        <td class="num">{% if d.xp is not none %}{{ d.xp }}{% else %}<span class="nil">·</span>{% endif %}</td>
         <td class="num">{% if d.streak is not none %}{{ d.streak }}{% else %}<span class="nil">·</span>{% endif %}</td>
         <td>{% if d.position %}{{ d.position }}{% else %}<span class="nil">·</span>{% endif %}</td>
       </tr>
