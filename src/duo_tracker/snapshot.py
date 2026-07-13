@@ -27,10 +27,12 @@ log = logging.getLogger(__name__)
 UPSERT = """
 INSERT INTO duolingo_daily_snapshot (
     person, snapshot_date, course_id, current_section, current_unit,
-    units_completed, lessons_completed_today, xp_today, streak_days, raw_response
+    units_completed, lessons_completed_today, xp_today, streak_days,
+    course_xp_total, course_sessions_total, raw_response
 ) VALUES (
     :person, :snapshot_date, :course_id, :current_section, :current_unit,
     :units_completed, :lessons_completed_today, :xp_today, :streak_days,
+    :course_xp_total, :course_sessions_total,
     CAST(:raw_response AS jsonb)
 )
 ON CONFLICT (person, snapshot_date, course_id) DO UPDATE SET
@@ -40,8 +42,18 @@ ON CONFLICT (person, snapshot_date, course_id) DO UPDATE SET
     lessons_completed_today = EXCLUDED.lessons_completed_today,
     xp_today = EXCLUDED.xp_today,
     streak_days = EXCLUDED.streak_days,
+    course_xp_total = EXCLUDED.course_xp_total,
+    course_sessions_total = EXCLUDED.course_sessions_total,
     raw_response = EXCLUDED.raw_response,
     updated_at = now()
+"""
+
+PREV_TOTALS = """
+SELECT course_xp_total, course_sessions_total, raw_response->'user' AS user_payload
+FROM duolingo_daily_snapshot
+WHERE person = :person AND course_id = :course_id AND snapshot_date < :snapshot_date
+ORDER BY snapshot_date DESC
+LIMIT 1
 """
 
 
@@ -106,6 +118,8 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
     streak_days = None
     xp_today = None
     lessons_today = None
+    xp_total = None
+    sessions_total = None
     try:
         user = UserPayload.model_validate(user_raw)
         course = user.currentCourse
@@ -118,13 +132,31 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
                 )
         position = reduce_path(course)
         streak_days = _streak_days(user)
-        xp_today, lessons_today = _today_metrics(xp_raw, snapshot_date)
+        xp_total, sessions_total = course_totals(course)
     except Exception:
         log.exception("reduction failed for %s — persisting raw payload with NULL metrics", account.person)
 
     if course_id is None:
         # Course id is part of the unique key; fall back to the spec convention.
         course_id = "pt-en"
+
+    # Daily metrics are deltas of the course-scoped running totals, NOT
+    # xp_summaries — that endpoint is account-wide, and a day of chess
+    # lessons polluted the Portuguese pace (2026-07-12). First-ever
+    # snapshot has no baseline and falls back to the account-wide numbers.
+    prev = _prev_totals(engine, account.person, course_id, snapshot_date)
+    if prev is not None and xp_total is not None:
+        xp_today, lessons_today = _delta_metrics(
+            account.person, xp_total, sessions_total, prev)
+    else:
+        try:
+            xp_today, lessons_today = _today_metrics(xp_raw, snapshot_date)
+            log.info(
+                "%s: no prior course totals — falling back to account-wide "
+                "xp_summaries for %s", account.person, snapshot_date,
+            )
+        except Exception:
+            log.exception("xp_summaries fallback failed for %s", account.person)
 
     with engine.begin() as conn:
         conn.execute(text(UPSERT), {
@@ -137,6 +169,8 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
             "lessons_completed_today": lessons_today,
             "xp_today": xp_today,
             "streak_days": streak_days,
+            "course_xp_total": xp_total,
+            "course_sessions_total": sessions_total,
             "raw_response": json.dumps(raw_response),
         })
     log.info(
@@ -144,6 +178,66 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
         account.person, snapshot_date, position.current_section, position.current_unit,
         position.units_completed, lessons_today, xp_today, streak_days,
     )
+
+
+def course_totals(course) -> tuple[int | None, int | None]:
+    """(course XP total, path sessions total) — both Portuguese-only.
+
+    Sessions = summed finishedSessions across learning sections (daily
+    refresh excluded, consistent with reduce_path). Counts path lessons,
+    stories, and radio *in the path*; excludes freeform practice — which
+    also makes the pace unit match the A2-remaining estimate's unit.
+    """
+    if course is None:
+        return None, None
+    sessions = None
+    if course.pathSectioned:
+        sessions = sum(
+            level.finishedSessions or 0
+            for section in course.pathSectioned
+            if section.type in (None, "learning")
+            for unit in (section.units or [])
+            for level in (unit.levels or [])
+        )
+    return course.xp, sessions
+
+
+def _prev_totals(engine, person: str, course_id: str, snapshot_date: date) -> tuple[int, int] | None:
+    """Most recent prior (xp_total, sessions_total). Rows written before the
+    totals columns existed still carry the payload — recompute from it."""
+    with engine.connect() as conn:
+        row = conn.execute(text(PREV_TOTALS), {
+            "person": person, "course_id": course_id, "snapshot_date": snapshot_date,
+        }).fetchone()
+    if row is None:
+        return None
+    if row[0] is not None and row[1] is not None:
+        return row[0], row[1]
+    if row[2]:
+        try:
+            payload = row[2] if isinstance(row[2], dict) else json.loads(row[2])
+            xp, sessions = course_totals(UserPayload.model_validate(payload).currentCourse)
+            if xp is not None and sessions is not None:
+                return xp, sessions
+        except Exception:
+            log.exception("could not derive prior course totals from stored payload")
+    return None
+
+
+def _delta_metrics(person: str, xp_total: int, sessions_total: int | None,
+                   prev: tuple[int, int]) -> tuple[int, int | None]:
+    prev_xp, prev_sessions = prev
+    xp_today = xp_total - prev_xp
+    lessons_today = sessions_total - prev_sessions if sessions_total is not None else None
+    if xp_today < 0 or (lessons_today is not None and lessons_today < 0):
+        # Totals went backwards — course reset or Duolingo reshuffle.
+        log.warning(
+            "%s: course totals decreased (xp %s, sessions %s) — clamping to 0",
+            person, xp_today, lessons_today,
+        )
+        xp_today = max(xp_today, 0)
+        lessons_today = max(lessons_today or 0, 0)
+    return xp_today, lessons_today
 
 
 def _streak_days(user: UserPayload) -> int | None:

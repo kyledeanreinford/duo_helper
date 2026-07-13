@@ -43,6 +43,7 @@ class CurrentCourse(_Tolerant):
     learningLanguage: str | None = None
     fromLanguage: str | None = None
     activePathSectionId: str | None = None
+    xp: int | None = None  # course-total XP — the course-scoped counter
     pathSectioned: list[PathSection] | None = None
 
 

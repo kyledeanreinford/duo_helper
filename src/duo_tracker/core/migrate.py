@@ -51,6 +51,14 @@ STATEMENTS: list[str] = [
                created_at, updated_at
         FROM duolingo_daily_snapshot
     """,
+    # 2026-07-13 course-scoped running totals (currentCourse.xp and summed
+    # path finishedSessions). xp_summaries is account-wide — a chess day
+    # polluted the lesson counts — so daily metrics are now deltas of these.
+    """
+    ALTER TABLE duolingo_daily_snapshot
+        ADD COLUMN IF NOT EXISTS course_xp_total int,
+        ADD COLUMN IF NOT EXISTS course_sessions_total int
+    """,
 ]
 
 
