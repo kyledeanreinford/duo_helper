@@ -93,6 +93,15 @@
   .trend.bad  { color: var(--accent); }
   .trend.flat { color: var(--muted); }
 
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 3rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .twocol { grid-template-columns: 1fr 1fr; }
+  }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -202,31 +211,7 @@
     </div>
   </div>
 
-  {% if s.observations %}
-  <table>
-    <caption>lessons per unit, observed
-      {%- if s.observed_per_unit %} — running average {{ "%.1f"|format(s.observed_per_unit) }}{% endif %}</caption>
-    <thead>
-      <tr>
-        <th>completed on</th>
-        <th class="num">units</th>
-        <th class="num">lessons spent</th>
-        <th class="num">per unit</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for o in s.observations %}
-      <tr>
-        <td>{{ o.day.strftime("%a %d %b") }}</td>
-        <td class="num">{{ o.units_gained }}</td>
-        <td class="num">{{ o.lessons_spent }}</td>
-        <td class="num">{{ "%.1f"|format(o.per_unit) }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
-
+  <div class="twocol">
   <table>
     <caption>the last seven days</caption>
     <thead>
@@ -250,6 +235,34 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {% if s.units %}
+  <table>
+    <caption>lessons per unit, from the course path
+      {%- if s.observed_per_unit %} — average {{ "%.1f"|format(s.observed_per_unit) }}{% endif %}</caption>
+    <thead>
+      <tr>
+        <th>unit</th>
+        <th>topic</th>
+        <th class="num">lessons</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in s.units|reverse %}
+      <tr>
+        <td>{{ u.label }}</td>
+        <td>{{ u.objective or "" }}</td>
+        <td class="num">
+          {%- if not u.completed %}{{ u.sessions_done }} / {{ u.total_sessions }} <span class="nil">in progress</span>
+          {%- elif u.total_sessions and u.sessions_done < u.total_sessions %}{{ u.sessions_done }} <span class="nil">skipped ahead</span>
+          {%- else %}{{ u.sessions_done }}{% endif -%}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  </div>
 </section>
 {% endfor %}
 
@@ -262,7 +275,9 @@
     <strong>24 lessons per unit</strong> through the end of Section&nbsp;4
     (unit&nbsp;131, CEFR&nbsp;A2) — a working number until enough units
     complete on-record; the observed table above replaces it with actuals as
-    they accumulate. Everything is anchored to the latest snapshot — the page
+    they accumulate (per-unit counts come from the course path itself:
+    sessions finished in each unit — day boundaries, other courses, and
+    skipped units can't distort them). Everything is anchored to the latest snapshot — the page
     never counts a not-yet-snapshotted day as zero. Days that were skipped
     mid-window show as&nbsp;· and count as zero in the averages. Snapshots
     land nightly at 23:59.

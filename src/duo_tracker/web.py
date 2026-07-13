@@ -13,6 +13,7 @@ numSessions counts stories and radio sessions too — same caveat for both
 the paces and the observations, stated on the page.
 """
 
+import json
 import logging
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -67,7 +68,7 @@ class PersonStats:
     eta30: date | None
     eta_shift_days: int | None  # ETA movement vs a week ago; negative = sooner
     week: list[DayRow]
-    observations: list["UnitObservation"]
+    units: list["UnitSessions"]   # recent completed + in-progress units
     observed_per_unit: float | None
 
 
@@ -101,16 +102,18 @@ def person_stats(conn, person: str, today: date) -> PersonStats:
         WHERE person = :person AND snapshot_date > :floor
         ORDER BY snapshot_date DESC
     """), {"person": person, "floor": today - timedelta(days=39)}).fetchall()
-    obs_rows = conn.execute(text("""
-        SELECT snapshot_date, lessons_completed_today, units_completed
+    course_raw = conn.execute(text("""
+        SELECT raw_response->'user'->'currentCourse'
         FROM duolingo_daily_snapshot
         WHERE person = :person
-        ORDER BY snapshot_date ASC
-    """), {"person": person}).fetchall()
-    return compute_stats(person, [tuple(r) for r in rows], [tuple(r) for r in obs_rows], today)
+          AND raw_response->'user'->'currentCourse' ? 'pathSectioned'
+        ORDER BY snapshot_date DESC
+        LIMIT 1
+    """), {"person": person}).scalar()
+    return compute_stats(person, [tuple(r) for r in rows], course_raw, today)
 
 
-def compute_stats(person: str, rows: list, obs_rows: list, today: date) -> PersonStats:
+def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonStats:
     """rows: snapshot tuples newest-first (see person_stats query)."""
     by_day = {r[0]: r for r in rows}
     # Anchor on the latest snapshot, not the calendar day: the nightly row
@@ -149,10 +152,21 @@ def compute_stats(person: str, rows: list, obs_rows: list, today: date) -> Perso
     latest = rows[0] if rows else None
     remaining = remaining_a2_lessons(latest[6] if latest else None)
 
-    observations = observe_lessons_per_unit(obs_rows)
-    total_gained = sum(o.units_gained for o in observations)
+    units: list[UnitSessions] = []
+    if course_raw is not None:
+        try:
+            from duo_tracker.duo.models import CurrentCourse
+            course = CurrentCourse.model_validate(
+                course_raw if isinstance(course_raw, dict) else json.loads(course_raw))
+            units = units_from_path(course)
+        except Exception:
+            log.exception("could not derive per-unit sessions from stored payload")
+    # Ground-through units only: a skipped/tested-out unit (few sessions
+    # done) is real but says nothing about how long a unit takes.
+    grind = [u for u in units if u.completed and u.total_sessions
+             and u.sessions_done >= u.total_sessions]
     observed_per_unit = (
-        sum(o.lessons_spent for o in observations) / total_gained if total_gained else None
+        sum(u.sessions_done for u in grind) / len(grind) if grind else None
     )
     return PersonStats(
         person=person,
@@ -169,7 +183,7 @@ def compute_stats(person: str, rows: list, obs_rows: list, today: date) -> Perso
         eta30=eta(anchor, remaining, avg30),
         eta_shift_days=eta_shift(anchor, remaining, avg7, avg7 - delta7),
         week=week,
-        observations=observations[-6:],
+        units=units[-8:],
         observed_per_unit=observed_per_unit,
     )
 
@@ -196,40 +210,41 @@ def remaining_a2_lessons(units_completed: int | None) -> int | None:
 
 
 @dataclass(frozen=True)
-class UnitObservation:
-    day: date          # the snapshot day the unit count ticked up
-    units_gained: int
-    lessons_spent: int  # lessons since the previous unit boundary
-    per_unit: float
+class UnitSessions:
+    label: str           # "S2 · U9" — matches the Duolingo UI
+    objective: str | None
+    sessions_done: int
+    total_sessions: int
+    completed: bool      # False = the currently-active unit, in progress
 
 
-def observe_lessons_per_unit(rows: list) -> list[UnitObservation]:
-    """Observed lessons-per-unit from snapshot history.
+def units_from_path(course) -> list[UnitSessions]:
+    """Per-unit session counts straight from the course path.
 
-    rows: (snapshot_date, lessons, units_completed) ascending by date, only
-    days where units_completed is known. Whenever units_completed increases,
-    the lessons accumulated since the last increase are attributed to the
-    units gained. Includes stories/radio sessions, same caveat as the paces.
+    finishedSessions is per-level and course-scoped, so this can't be
+    polluted by other courses (chess...) or by how lessons fall across
+    days. A completed unit with sessions_done well under its total was
+    skipped / tested out of, not ground through — visible, not corrupting.
     """
-    observations: list[UnitObservation] = []
-    prev_units: int | None = None
-    lessons_acc = 0
-    for day, lessons, units in rows:
-        if units is None:
-            continue
-        if prev_units is None:
-            prev_units = units
-            continue
-        lessons_acc += lessons or 0
-        if units > prev_units:
-            gained = units - prev_units
-            observations.append(UnitObservation(
-                day=day, units_gained=gained, lessons_spent=lessons_acc,
-                per_unit=lessons_acc / gained,
+    out: list[UnitSessions] = []
+    sections = [s for s in (course.pathSectioned or []) if s.type in (None, "learning")]
+    for s_idx, section in enumerate(sections):
+        for u_idx, unit in enumerate(section.units or []):
+            levels = unit.levels or []
+            states = [lv.state for lv in levels if lv.state is not None]
+            completed = bool(states) and all(st == "passed" for st in states)
+            started = any(st in ("passed", "active") for st in states)
+            if not started:
+                continue
+            out.append(UnitSessions(
+                label=f"S{(section.index + 1) if section.index is not None else s_idx + 1}"
+                      f" · U{u_idx + 1}",
+                objective=unit.teachingObjective,
+                sessions_done=sum(lv.finishedSessions or 0 for lv in levels),
+                total_sessions=sum(lv.totalSessions or 0 for lv in levels),
+                completed=completed,
             ))
-            lessons_acc = 0
-            prev_units = units
-    return observations
+    return out
 
 
 def serve(host: str = "0.0.0.0", port: int = 8000) -> int:
