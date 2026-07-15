@@ -100,10 +100,18 @@ def _client():
 
 
 def parse_classifications(payload: dict, expected: set[str]) -> dict[str, tuple[bool, str | None]]:
-    """{word: (differs, ep_word)} for words we actually asked about."""
+    """{word: (differs, ep_word)} for words we actually asked about.
+
+    The model sometimes echoes entries as "word (gloss)" since that's the
+    input format — strip the parenthetical before matching.
+    """
     out: dict[str, tuple[bool, str | None]] = {}
     for item in payload.get("words", []):
         word = item.get("word")
+        if not isinstance(word, str):
+            continue
+        if word not in expected:
+            word = word.split(" (")[0].strip()
         if word in expected:
             differs = bool(item.get("differs"))
             ep_word = item.get("ep_word") if differs else None
