@@ -38,6 +38,12 @@ class Settings(BaseSettings):
     # credential. Unset (local dev) = alerting disabled, stdout only.
     alertmanager_url: str | None = None
 
+    # Claude API, used to classify BP→EP lexical differences and generate the
+    # Lisbon slang deck. Unset = ep-classify/slang-seed are no-ops (so the
+    # nightly cron can run them safely before the key is configured).
+    anthropic_api_key: str | None = None
+    anthropic_model: str = "claude-opus-4-8"
+
     def accounts(self) -> list[DuoAccount]:
         out: list[DuoAccount] = []
         for name in [p.strip().lower() for p in self.duo_people.split(",") if p.strip()]:

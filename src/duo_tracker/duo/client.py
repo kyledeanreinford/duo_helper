@@ -80,3 +80,29 @@ class DuoClient:
             f"{BASE}/users/{user_id}/xp_summaries",
             params={"startDate": start_date.isoformat()},
         )
+
+    def get_learned_lexemes(self, user_id: int, learning: str, from_lang: str,
+                            progressed_skills: list[dict], start_index: int = 0,
+                            limit: int = 50) -> dict:
+        """One page of the practice-hub 'Words' list (confirmed live
+        2026-07-14). The server derives vocab from progressed_skills —
+        an empty list yields an empty result, not an error."""
+        url = (f"{BASE}/users/{user_id}/courses/{learning}/{from_lang}/learned-lexemes"
+               f"?limit={limit}&startIndex={start_index}&sortBy=LEARNED_DATE")
+        resp = self._client.post(url, json={
+            "lastTotalLexemeCount": 0,
+            "progressedSkills": progressed_skills,
+        })
+        if resp.status_code in (401, 403):
+            raise DuoAuthError(
+                f"Duolingo rejected the JWT for '{self.person}' (HTTP {resp.status_code}). "
+                f"Re-harvest it: log into duolingo.com as {self.person} in a browser, copy "
+                f"the 'jwt_token' cookie value, and update DUO_JWT_{self.person.upper()} "
+                f"in .env (or the k8s secret)."
+            )
+        if resp.status_code >= 300:
+            raise DuoApiError(
+                f"POST learned-lexemes -> HTTP {resp.status_code} for "
+                f"'{self.person}': {resp.text[:300]}"
+            )
+        return resp.json()

@@ -77,6 +77,22 @@ def health() -> JSONResponse:
     return JSONResponse({"ok": True})
 
 
+@app.get("/lisboa.apkg")
+def anki_deck():
+    """Always-current Anki deck, downloadable straight into AnkiMobile."""
+    import tempfile
+
+    from fastapi.responses import FileResponse
+
+    from duo_tracker.anki_export import build_deck
+
+    out = tempfile.NamedTemporaryFile(suffix=".apkg", delete=False)
+    out.close()
+    build_deck(out.name)
+    return FileResponse(out.name, filename="lisboa.apkg",
+                        media_type="application/octet-stream")
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
     engine = get_engine()

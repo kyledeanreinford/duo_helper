@@ -59,6 +59,42 @@ STATEMENTS: list[str] = [
         ADD COLUMN IF NOT EXISTS course_xp_total int,
         ADD COLUMN IF NOT EXISTS course_sessions_total int
     """,
+    # 2026-07-14 learned vocabulary (practice-hub learned-lexemes endpoint).
+    # first_seen is ours — the endpoint carries no timestamps, so learn
+    # dates accrue from the nightly sync.
+    """
+    CREATE TABLE IF NOT EXISTS duolingo_vocab (
+        id           bigserial PRIMARY KEY,
+        person       text NOT NULL,
+        course_id    text NOT NULL,
+        lexeme       text NOT NULL,
+        translations jsonb,
+        audio_url    text,
+        first_seen   date NOT NULL,
+        last_seen    date NOT NULL,
+        UNIQUE (person, course_id, lexeme)
+    )
+    """,
+    # 2026-07-14 European-Portuguese layer for the Lisbon flashcards:
+    # ep_differs NULL = not yet classified by Claude; true = lexical swap
+    # with the Lisbon word in ep_variant. lisbon_slang is the LLM-curated
+    # deck of Europeanisms Duolingo doesn't teach.
+    """
+    ALTER TABLE duolingo_vocab
+        ADD COLUMN IF NOT EXISTS ep_differs boolean,
+        ADD COLUMN IF NOT EXISTS ep_variant text,
+        ADD COLUMN IF NOT EXISTS classified_at date
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS lisbon_slang (
+        id          bigserial PRIMARY KEY,
+        term        text NOT NULL UNIQUE,
+        translation text,
+        note        text,
+        category    text,
+        added       date
+    )
+    """,
 ]
 
 

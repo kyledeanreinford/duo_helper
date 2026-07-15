@@ -35,6 +35,20 @@ def main(argv: list[str] | None = None) -> int:
     p_show.add_argument("--person", default=None, help="Only show this person")
     p_show.add_argument("--days", type=int, default=14, help="Look-back window (default: 14)")
 
+    p_vocab = sub.add_parser("vocab", help="Sync learned vocabulary into duolingo_vocab")
+    p_vocab.add_argument("--person", default=None, help="Only sync this person")
+    p_vocab.add_argument("--list", type=int, default=0, metavar="N",
+                         help="Don't sync; list the N most recently seen words")
+
+    p_ep = sub.add_parser("ep-classify", help="Classify learned words for BP→EP lexical swaps (Claude)")
+    p_ep.add_argument("--person", default=None, help="Only classify this person's words")
+
+    p_slang = sub.add_parser("slang-seed", help="Generate the Lisbon slang deck (Claude, one-time)")
+    p_slang.add_argument("--force", action="store_true", help="Regenerate even if entries exist")
+
+    p_anki = sub.add_parser("anki", help="Export the Lisbon Anki deck (.apkg)")
+    p_anki.add_argument("--out", default="lisboa.apkg", help="Output path (default: lisboa.apkg)")
+
     p_web = sub.add_parser("web", help="Serve the pace-log page")
     p_web.add_argument("--host", default="0.0.0.0")
     p_web.add_argument("--port", type=int, default=8000)
@@ -57,6 +71,20 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "show":
         from duo_tracker.show import run
         return run(person=args.person, days=args.days)
+    if args.cmd == "vocab":
+        from duo_tracker.vocab import run, show
+        if args.list:
+            return show(person=args.person, limit=args.list)
+        return run(person=args.person)
+    if args.cmd == "ep-classify":
+        from duo_tracker.ep import classify
+        return classify(person=args.person)
+    if args.cmd == "slang-seed":
+        from duo_tracker.ep import seed_slang
+        return seed_slang(force=args.force)
+    if args.cmd == "anki":
+        from duo_tracker.anki_export import build_deck
+        return build_deck(out_path=args.out)
     if args.cmd == "web":
         from duo_tracker.web import serve
         return serve(host=args.host, port=args.port)
