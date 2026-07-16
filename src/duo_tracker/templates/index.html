@@ -189,7 +189,7 @@
       <div class="label">A2 progress</div>
       <div class="value">{{ s.units_completed if s.units_completed is not none else "—" }}<small> / 131 units</small></div>
       {% if s.remaining_a2_lessons is not none %}
-      <div class="detail">~{{ s.remaining_a2_lessons }} lessons left at 24/unit</div>
+      <div class="detail">{{ s.remaining_a2_lessons }} lessons left, from the course path</div>
       {% endif %}
     </div>
     <div class="tile eta">
@@ -269,11 +269,11 @@
   <p>
     Pace counts Portuguese path sessions only (course-scoped day-over-day
     deltas — chess or other courses can't pollute it; freeform practice
-    outside the path isn't counted). Lessons remaining assume
-    <strong>24 lessons per unit</strong> through the end of Section&nbsp;4
-    (unit&nbsp;131, CEFR&nbsp;A2) — a working number until enough units
-    complete on-record; the observed table above replaces it with actuals as
-    they accumulate (per-unit counts come from the course path itself:
+    outside the path isn't counted). Lessons remaining are counted
+    <strong>exactly from the course path</strong> — the declared sessions
+    left in every unit through the end of Section&nbsp;4 (unit&nbsp;131,
+    CEFR&nbsp;A2), minus the one optional session per unit that never gets
+    done (per-unit counts come from the course path itself:
     sessions finished in each unit — day boundaries, other courses, and
     skipped units can't distort them). Everything is anchored to the latest snapshot — the page
     never counts a not-yet-snapshotted day as zero. Days that were skipped

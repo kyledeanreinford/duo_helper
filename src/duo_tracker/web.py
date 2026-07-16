@@ -36,10 +36,12 @@ app = FastAPI()
 # End of A2 = everything through Section 4 (11 + 30 + 30 + 60 units).
 A2_UNIT_TARGET = 131
 
-# Kyle's working assumption until enough units complete on-record to use
-# observed actuals (the path payload's own totalSessions implies ~23/unit
-# through A2, so this is consistent). Revisit once observed data exists.
+# Fallback only, when no path payload is available. The real number comes
+# from the path itself (remaining_a2_from_path): declared totalSessions per
+# unit proved exact once units completed on-record — every ground-through
+# unit finishes at total-1 (the optional session Kyle always skips).
 ASSUMED_LESSONS_PER_UNIT = 24
+A2_SECTION_INDEXES = (0, 1, 2, 3)
 
 
 @dataclass(frozen=True)
@@ -166,17 +168,20 @@ def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonSta
         ))
 
     latest = rows[0] if rows else None
-    remaining = remaining_a2_lessons(latest[6] if latest else None)
 
     units: list[UnitSessions] = []
+    remaining = None
     if course_raw is not None:
         try:
             from duo_tracker.duo.models import CurrentCourse
             course = CurrentCourse.model_validate(
                 course_raw if isinstance(course_raw, dict) else json.loads(course_raw))
             units = units_from_path(course)
+            remaining = remaining_a2_from_path(course)
         except Exception:
             log.exception("could not derive per-unit sessions from stored payload")
+    if remaining is None:
+        remaining = remaining_a2_lessons(latest[6] if latest else None)
     # Ground-through units only: a tested-out unit (well under half its
     # sessions done) says nothing about how long a unit takes. Note that
     # normally-completed units finish at total-1 (one optional session per
@@ -221,10 +226,39 @@ def eta_shift(today: date, remaining: int | None, rate_now: float, rate_prev: fl
 
 
 def remaining_a2_lessons(units_completed: int | None) -> int | None:
-    """Remaining lessons to end of A2 at the assumed lessons-per-unit rate."""
+    """Fallback estimate when no path payload exists (backfill-only rows)."""
     if units_completed is None:
         return None
     return max(A2_UNIT_TARGET - units_completed, 0) * ASSUMED_LESSONS_PER_UNIT
+
+
+def remaining_a2_from_path(course) -> int | None:
+    """Exact remaining lessons through Section 4, from the course path.
+
+    Sums declared sessions still to do in incomplete units, minus the one
+    optional session per unit that never gets done. Completed units
+    contribute nothing (their only leftover is that skipped optional).
+    """
+    if course is None or not course.pathSectioned:
+        return None
+    remaining = 0
+    for section in course.pathSectioned:
+        if section.type not in (None, "learning"):
+            continue
+        if section.index is not None and section.index not in A2_SECTION_INDEXES:
+            continue
+        for unit in section.units or []:
+            levels = unit.levels or []
+            states = [lv.state for lv in levels if lv.state is not None]
+            completed = bool(states) and all(st == "passed" for st in states)
+            if completed or not states:
+                continue
+            declared = sum(
+                max((lv.totalSessions or 0) - (lv.finishedSessions or 0), 0)
+                for lv in levels
+            )
+            remaining += max(declared - 1, 0)
+    return remaining or None
 
 
 @dataclass(frozen=True)

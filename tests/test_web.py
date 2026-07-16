@@ -7,6 +7,7 @@ from duo_tracker.web import (
     ASSUMED_LESSONS_PER_UNIT,
     compute_stats,
     eta_shift,
+    remaining_a2_from_path,
     remaining_a2_lessons,
     units_from_path,
 )
@@ -19,6 +20,41 @@ def test_remaining_a2_lessons_uses_assumption():
     assert remaining_a2_lessons(None) is None
     assert remaining_a2_lessons(131) == 0
     assert remaining_a2_lessons(200) == 0  # past the target never goes negative
+
+
+def test_remaining_a2_from_path():
+    course = CurrentCourse.model_validate({
+        "pathSectioned": [
+            {"type": "learning", "index": 0, "units": [
+                # completed: contributes 0 (its leftover is the skipped optional)
+                {"levels": [{"state": "passed", "finishedSessions": 21, "totalSessions": 22}]},
+                # in progress: 22 - 9 declared, minus the optional = 12
+                {"levels": [{"state": "active", "finishedSessions": 9, "totalSessions": 22}]},
+                # untouched: 22 declared, minus the optional = 21
+                {"levels": [{"state": "locked", "finishedSessions": 0, "totalSessions": 22}]},
+            ]},
+            # B1 section — outside the A2 target, ignored
+            {"type": "learning", "index": 4, "units": [
+                {"levels": [{"state": "locked", "finishedSessions": 0, "totalSessions": 6}]},
+            ]},
+            # daily refresh — ignored
+            {"type": "daily_refresh", "units": [
+                {"levels": [{"state": "locked", "finishedSessions": 0, "totalSessions": 5}]},
+            ]},
+        ],
+    })
+    assert remaining_a2_from_path(course) == 12 + 21
+    assert remaining_a2_from_path(None) is None
+    assert remaining_a2_from_path(CurrentCourse()) is None
+
+
+def test_remaining_a2_from_real_fixture():
+    course = CurrentCourse.model_validate(
+        json.loads((FIXTURES / "user_payload.json").read_text())["currentCourse"])
+    # Fixture only carries units for S1-S3 (S4+ trimmed), so this is the
+    # S2+S3 remainder at capture time; exactness matters, not magnitude.
+    remaining = remaining_a2_from_path(course)
+    assert remaining and 1000 < remaining < 1200
 
 
 def test_units_from_real_fixture():
