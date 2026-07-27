@@ -187,10 +187,11 @@
     </div>
     <div class="tile">
       <div class="label">A2 progress</div>
-      <div class="value">{{ s.units_completed if s.units_completed is not none else "—" }}<small> / 131 units</small></div>
-      {% if s.remaining_a2_lessons is not none %}
-      <div class="detail">{{ s.remaining_a2_lessons }} lessons left, from the course path</div>
-      {% endif %}
+      <div class="value">{{ "%.1f"|format(s.percent_a2) if s.percent_a2 is not none else "—" }}<small>%</small></div>
+      <div class="detail">
+        {{ s.units_completed if s.units_completed is not none else "—" }} / 131 units
+        {%- if s.remaining_a2_lessons is not none %} · {{ s.remaining_a2_lessons }} lessons left{% endif %}
+      </div>
     </div>
     <div class="tile eta">
       <div class="label">End of A2, est.</div>
@@ -208,6 +209,11 @@
         <div class="trend flat">— unchanged vs last week</div>
         {% endif %}
       {% endif %}
+    </div>
+    <div class="tile">
+      <div class="label">Whole course</div>
+      <div class="value">{{ "%.1f"|format(s.percent_overall) if s.percent_overall is not none else "—" }}<small>%</small></div>
+      <div class="detail">of all 1,031 units, weighted by lessons per unit</div>
     </div>
   </div>
 
@@ -269,13 +275,16 @@
   <p>
     Pace counts Portuguese path sessions only (course-scoped day-over-day
     deltas — chess or other courses can't pollute it; freeform practice
-    outside the path isn't counted). Lessons remaining are counted
-    <strong>exactly from the course path</strong> — the declared sessions
-    left in every unit through the end of Section&nbsp;4 (unit&nbsp;131,
-    CEFR&nbsp;A2), minus the one optional session per unit that never gets
-    done (per-unit counts come from the course path itself:
-    sessions finished in each unit — day boundaries, other courses, and
-    skipped units can't distort them). Everything is anchored to the latest snapshot — the page
+    outside the path isn't counted). Lessons remaining and both percentages
+    are counted <strong>exactly from the course path</strong> — the declared
+    sessions in every unit, minus the one optional session that never gets
+    done, weighted by how big each unit actually is (later units run ~20x
+    the size of the first ones, so a unit-count fraction would badly
+    understate progress). "Whole course" covers all 1,031 units through
+    CEFR&nbsp;B2, not just the A2 target (per-unit counts come from the
+    course path itself: sessions finished in each unit — day boundaries,
+    other courses, and skipped units can't distort them). Everything is
+    anchored to the latest snapshot — the page
     never counts a not-yet-snapshotted day as zero. Days that were skipped
     mid-window show as&nbsp;· and count as zero in the averages. Snapshots
     land nightly at 23:59.

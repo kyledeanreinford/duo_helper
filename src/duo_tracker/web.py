@@ -1,16 +1,17 @@
 """`duo-tracker web` — the pace log, one server-rendered page, no JS.
 
 Shows, per person: the last 7 days, 7- and 30-day rolling lesson averages
-(calendar windows — days without activity count as zero), and an estimate
-of reaching the end of Section 4 (end of A2, unit 131) at each pace.
+(calendar windows — days without activity count as zero), percent done for
+both the A2 goal and the whole course, and an ETA for reaching the end of
+Section 4 (end of A2, unit 131) at each pace.
 
-The A2 estimate is (remaining units × ASSUMED_LESSONS_PER_UNIT) divided by
-the rolling lessons/day. The per-unit number is Kyle's working assumption
-(24); as units complete on-record, the page also shows *observed*
-lessons-per-unit derived from snapshot history, so the assumption can be
-replaced by actuals once there's a unit or two of data. xp_summaries'
-numSessions counts stories and radio sessions too — same caveat for both
-the paces and the observations, stated on the page.
+Percent-done and the A2 remaining count both come from path_progress(): a
+session-weighted sum over the course path (declared totalSessions minus the
+one optional session per unit that ground-through units never do), not a
+naive unit-count fraction — early sections have units ~20x smaller than
+late ones, so counting units would badly understate real progress.
+ASSUMED_LESSONS_PER_UNIT only kicks in as a fallback for rows with no
+stored path payload (pre-payload backfilled days).
 """
 
 import json
@@ -69,6 +70,8 @@ class PersonStats:
     eta7: date | None
     eta30: date | None
     eta_shift_days: int | None  # ETA movement vs a week ago; negative = sooner
+    percent_a2: float | None       # session-weighted, 0-100
+    percent_overall: float | None  # session-weighted across the whole course
     week: list[DayRow]
     units: list["UnitSessions"]   # recent completed + in-progress units
     observed_per_unit: float | None
@@ -171,6 +174,7 @@ def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonSta
 
     units: list[UnitSessions] = []
     remaining = None
+    percent_a2 = percent_overall = None
     if course_raw is not None:
         try:
             from duo_tracker.duo.models import CurrentCourse
@@ -178,6 +182,8 @@ def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonSta
                 course_raw if isinstance(course_raw, dict) else json.loads(course_raw))
             units = units_from_path(course)
             remaining = remaining_a2_from_path(course)
+            percent_a2 = percent_done(course, A2_SECTION_INDEXES)
+            percent_overall = percent_done(course, None)
         except Exception:
             log.exception("could not derive per-unit sessions from stored payload")
     if remaining is None:
@@ -205,6 +211,8 @@ def compute_stats(person: str, rows: list, course_raw, today: date) -> PersonSta
         eta7=eta(anchor, remaining, avg7),
         eta30=eta(anchor, remaining, avg30),
         eta_shift_days=eta_shift(anchor, remaining, avg7, avg7 - delta7),
+        percent_a2=percent_a2,
+        percent_overall=percent_overall,
         week=week,
         units=units[-8:],
         observed_per_unit=observed_per_unit,
@@ -232,33 +240,55 @@ def remaining_a2_lessons(units_completed: int | None) -> int | None:
     return max(A2_UNIT_TARGET - units_completed, 0) * ASSUMED_LESSONS_PER_UNIT
 
 
-def remaining_a2_from_path(course) -> int | None:
-    """Exact remaining lessons through Section 4, from the course path.
+def path_progress(course, section_indexes: tuple[int, ...] | None) -> tuple[int, int] | None:
+    """(effective sessions done, effective sessions total) over the given
+    sections (None = the whole course). "Effective" excludes one optional
+    session per unit — the one Kyle's completed units show he never does —
+    so a fully-ground unit reads as 100% rather than capping just under it.
 
-    Sums declared sessions still to do in incomplete units, minus the one
-    optional session per unit that never gets done. Completed units
-    contribute nothing (their only leftover is that skipped optional).
+    This is the shared core for both the exact A2-remaining count and the
+    session-weighted percent-done figures: unit *count* badly understates
+    progress once later sections have units 20x the size of early ones.
     """
     if course is None or not course.pathSectioned:
         return None
-    remaining = 0
+    done = total = 0
+    saw_any = False
     for section in course.pathSectioned:
         if section.type not in (None, "learning"):
             continue
-        if section.index is not None and section.index not in A2_SECTION_INDEXES:
+        if section_indexes is not None and section.index not in section_indexes:
             continue
         for unit in section.units or []:
             levels = unit.levels or []
-            states = [lv.state for lv in levels if lv.state is not None]
-            completed = bool(states) and all(st == "passed" for st in states)
-            if completed or not states:
+            if not levels:
                 continue
-            declared = sum(
-                max((lv.totalSessions or 0) - (lv.finishedSessions or 0), 0)
-                for lv in levels
-            )
-            remaining += max(declared - 1, 0)
-    return remaining or None
+            saw_any = True
+            declared = sum(lv.totalSessions or 0 for lv in levels)
+            finished = sum(lv.finishedSessions or 0 for lv in levels)
+            target = max(declared - 1, 0)  # the skipped optional never counts
+            total += target
+            done += min(finished, target)
+    return (done, total) if saw_any else None
+
+
+def percent_done(course, section_indexes: tuple[int, ...] | None) -> float | None:
+    progress = path_progress(course, section_indexes)
+    if progress is None or progress[1] == 0:
+        return None
+    done, total = progress
+    return 100.0 * done / total
+
+
+def remaining_a2_from_path(course) -> int | None:
+    """Exact remaining lessons through Section 4, from the course path.
+    0 is a real, meaningful answer (A2 finished) — only None means no data.
+    """
+    progress = path_progress(course, A2_SECTION_INDEXES)
+    if progress is None:
+        return None
+    done, total = progress
+    return max(total - done, 0)
 
 
 @dataclass(frozen=True)

@@ -2,11 +2,15 @@ import json
 from datetime import date
 from pathlib import Path
 
+import pytest
+
 from duo_tracker.duo.models import CurrentCourse
 from duo_tracker.web import (
     ASSUMED_LESSONS_PER_UNIT,
     compute_stats,
     eta_shift,
+    path_progress,
+    percent_done,
     remaining_a2_from_path,
     remaining_a2_lessons,
     units_from_path,
@@ -46,6 +50,47 @@ def test_remaining_a2_from_path():
     assert remaining_a2_from_path(course) == 12 + 21
     assert remaining_a2_from_path(None) is None
     assert remaining_a2_from_path(CurrentCourse()) is None
+    # done=21 (completed) + 9 (in-progress) + 0 (untouched) = 30; total=63
+    assert percent_done(course, (0,)) == pytest.approx(100 * 30 / 63)
+
+
+def test_remaining_a2_zero_is_real_not_missing():
+    """A2 fully done (0 remaining) must not collapse to None — that would
+    wrongly trigger the flat-24 fallback and report lessons still owed."""
+    course = CurrentCourse.model_validate({
+        "pathSectioned": [{"type": "learning", "index": 0, "units": [
+            {"levels": [{"state": "passed", "finishedSessions": 21, "totalSessions": 22}]},
+        ]}],
+    })
+    assert remaining_a2_from_path(course) == 0
+    assert percent_done(course, (0,)) == pytest.approx(100.0)
+
+
+def test_path_progress_no_data_vs_all_locked():
+    # No pathSectioned at all -> genuinely unknown
+    assert path_progress(CurrentCourse(), None) is None
+    # Sections exist but units carry no levels (not yet loaded) -> unknown
+    course = CurrentCourse.model_validate({
+        "pathSectioned": [{"type": "learning", "index": 0, "units": [{"unitIndex": 0}]}],
+    })
+    assert path_progress(course, None) is None
+
+
+def test_percent_overall_weighted_by_declared_sessions():
+    # Two sections: one small (10 sessions, done), one huge (990, untouched).
+    # Overall percent should be ~1%, not 50% (naive per-section average).
+    course = CurrentCourse.model_validate({
+        "pathSectioned": [
+            {"type": "learning", "index": 0, "units": [
+                {"levels": [{"state": "passed", "finishedSessions": 9, "totalSessions": 10}]},
+            ]},
+            {"type": "learning", "index": 1, "units": [
+                {"levels": [{"state": "locked", "finishedSessions": 0, "totalSessions": 990}]},
+            ]},
+        ],
+    })
+    pct = percent_done(course, None)
+    assert pct is not None and pct < 2.0
 
 
 def test_remaining_a2_from_real_fixture():
@@ -55,6 +100,11 @@ def test_remaining_a2_from_real_fixture():
     # S2+S3 remainder at capture time; exactness matters, not magnitude.
     remaining = remaining_a2_from_path(course)
     assert remaining and 1000 < remaining < 1200
+    # Fixture trims S4+ to metadata-only (no per-unit levels), so those
+    # sections don't count toward "seen" — percent is S1-S3 only here, but
+    # must still be well under 100 (S2/S3 barely started).
+    pct = percent_done(course, (0, 1, 2))
+    assert pct is not None and 0 < pct < 50
 
 
 def test_units_from_real_fixture():
@@ -154,3 +204,5 @@ def test_compute_stats_empty_history():
     assert s.anchor == date(2026, 7, 11)
     assert s.avg7 == 0.0
     assert s.eta7 is None
+    assert s.percent_a2 is None
+    assert s.percent_overall is None
