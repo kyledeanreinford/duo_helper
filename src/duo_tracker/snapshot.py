@@ -144,10 +144,27 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
     # xp_summaries — that endpoint is account-wide, and a day of chess
     # lessons polluted the Portuguese pace (2026-07-12). First-ever
     # snapshot has no baseline and falls back to the account-wide numbers.
+    reshape_fallback = False
     prev = _prev_totals(engine, account.person, course_id, snapshot_date)
     if prev is not None and xp_total is not None:
-        xp_today, lessons_today = _delta_metrics(
-            account.person, xp_total, sessions_total, prev)
+        xp_today, lessons_today = _delta_metrics(account.person, xp_total, sessions_total, prev)
+        if lessons_today is not None and lessons_today < 0:
+            # Duolingo occasionally shrinks a section's declared sessions
+            # (confirmed live 2026-08-01: the Intro section lost 44 declared
+            # sessions in one day) — the course total legitimately drops.
+            # Clamping to 0 would report a lesson-free day that wasn't;
+            # xp_summaries is at least dated, even though account-wide.
+            reshape_fallback = True
+            log.warning(
+                "%s: course totals decreased for %s (declared sessions shrank — "
+                "likely a Duolingo course reshape); falling back to account-wide "
+                "xp_summaries for this day only", account.person, snapshot_date,
+            )
+            try:
+                xp_today, lessons_today = _today_metrics(xp_raw, snapshot_date)
+            except Exception:
+                log.exception("xp_summaries fallback failed for %s", account.person)
+                xp_today, lessons_today = max(xp_today, 0), 0
     else:
         try:
             xp_today, lessons_today = _today_metrics(xp_raw, snapshot_date)
@@ -157,6 +174,14 @@ def snapshot_one(account: DuoAccount, snapshot_date: date, engine) -> None:
             )
         except Exception:
             log.exception("xp_summaries fallback failed for %s", account.person)
+
+    if reshape_fallback:
+        raw_response["reshape_fallback"] = (
+            "course_sessions_total decreased vs prior day (Duolingo shrank a "
+            "section's declared sessions) — lessons_completed_today/xp_today "
+            "for this day came from account-wide xp_summaries instead of the "
+            "course-scoped delta"
+        )
 
     with engine.begin() as conn:
         conn.execute(text(UPSERT), {
@@ -226,17 +251,13 @@ def _prev_totals(engine, person: str, course_id: str, snapshot_date: date) -> tu
 
 def _delta_metrics(person: str, xp_total: int, sessions_total: int | None,
                    prev: tuple[int, int]) -> tuple[int, int | None]:
+    """Raw day-over-day deltas. XP is cumulative and effectively never
+    decreases, so it's clamped defensively; a negative lessons_today is
+    passed through — the caller decides how to handle a real course
+    reshape (see snapshot_one)."""
     prev_xp, prev_sessions = prev
-    xp_today = xp_total - prev_xp
+    xp_today = max(xp_total - prev_xp, 0)
     lessons_today = sessions_total - prev_sessions if sessions_total is not None else None
-    if xp_today < 0 or (lessons_today is not None and lessons_today < 0):
-        # Totals went backwards — course reset or Duolingo reshuffle.
-        log.warning(
-            "%s: course totals decreased (xp %s, sessions %s) — clamping to 0",
-            person, xp_today, lessons_today,
-        )
-        xp_today = max(xp_today, 0)
-        lessons_today = max(lessons_today or 0, 0)
     return xp_today, lessons_today
 
 

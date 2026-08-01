@@ -37,5 +37,12 @@ def test_delta_metrics_chess_immune():
     assert _delta_metrics("kyle", xp_total=17066, sessions_total=210, prev=(16035, 193)) == (1031, 17)
 
 
-def test_delta_metrics_clamps_resets():
-    assert _delta_metrics("kyle", xp_total=100, sessions_total=5, prev=(16035, 193)) == (0, 0)
+def test_delta_metrics_clamps_xp_but_passes_through_negative_lessons():
+    # xp is cumulative and clamped defensively; a negative lessons delta is
+    # passed through as-is — the caller (snapshot_one) decides whether that
+    # means a course reshape and needs the xp_summaries fallback.
+    assert _delta_metrics("kyle", xp_total=100, sessions_total=5, prev=(16035, 193)) == (0, -188)
+
+
+def test_delta_metrics_no_sessions_total():
+    assert _delta_metrics("kyle", xp_total=17066, sessions_total=None, prev=(16035, 193)) == (1031, None)
